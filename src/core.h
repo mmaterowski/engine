@@ -1,3 +1,4 @@
+#include "precision.h"
 namespace cyclone {
 class Vector3 {
 public:
