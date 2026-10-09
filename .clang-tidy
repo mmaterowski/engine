@@ -3,7 +3,8 @@ Checks: >
   bugprone-*,
   performance-*,
   readability-*,
-  modernize-*
+  modernize-*,
+  -readability-identifier-length
 WarningsAsErrors: ""
 HeaderFilterRegex: ".*"
 FormatStyle: file

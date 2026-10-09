@@ -9,7 +9,7 @@ add_library(engine
 )
 add_executable(engine_app src/main.cpp)
 
-target_compile_features(engine PRIVATE cxx_std_20)
+target_compile_features(engine PUBLIC cxx_std_20)
 
 target_include_directories(engine PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
