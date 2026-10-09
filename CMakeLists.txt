@@ -4,15 +4,18 @@ project(engine LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(engine src/main.cpp)
+add_library(engine
+    src/test.cpp
+)
+add_executable(engine_app src/main.cpp)
 
 target_compile_features(engine PRIVATE cxx_std_20)
 
-target_compile_options(engine PRIVATE
-  "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1"
+target_include_directories(engine PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
-endif()
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+target_link_libraries(engine_app PRIVATE engine)
+
+enable_testing()
+add_subdirectory(tests)

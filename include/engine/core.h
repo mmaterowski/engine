@@ -1,5 +1,7 @@
-#include "precision.h"
-namespace cyclone {
+#pragma once
+
+#include <engine/precision.h>
+namespace whirlwind {
 class Vector3 {
 public:
   real x;
@@ -26,4 +28,4 @@ public:
     return Vector3(x * value, y * value, z * value);
   }
 };
-} // namespace cyclone
+} // namespace whirlwind

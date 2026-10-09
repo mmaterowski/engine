@@ -9,9 +9,13 @@
     },
     {
       "name": "debug",
-      "inherits": "base",
+      "generator": "Ninja",
       "binaryDir": "${sourceDir}/build",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_OSX_SYSROOT": "/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
     },
     {
       "name": "release",
@@ -23,5 +27,19 @@
   "buildPresets": [
     { "name": "debug", "configurePreset": "debug" },
     { "name": "release", "configurePreset": "release" }
-  ]
+  ],
+  "testPresets": [
+     {
+       "name": "debug",
+       "displayName": "Run tests (Debug)",
+       "configurePreset": "debug",
+       "output": {
+         "outputOnFailure": true
+       },
+       "execution": {
+         "noTestsAction": "error",
+         "stopOnFailure": false
+       }
+     }
+   ]
 }
