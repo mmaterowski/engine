@@ -53,5 +53,23 @@ public:
     y += vector.y * scale;
     z += vector.z * scale;
   }
+
+  Vector3 componentProduct(const Vector3 &vector) const {
+    return Vector3(x * vector.x, y * vector.y, z * vector.z);
+  }
+
+  void componentProductUpdate(const Vector3 &vector) {
+    x *= vector.x;
+    y *= vector.y;
+    z *= vector.z;
+  }
+
+  real scalarProduct(const Vector3 &vector) const {
+    return (x * vector.x) + (y * vector.y) + (z * vector.z);
+  }
+
+  auto operator*(const Vector3 &vector) const -> real {
+    return (x * vector.x) + (y * vector.y) + (z * vector.z);
+  }
 };
 } // namespace whirlwind
