@@ -96,3 +96,24 @@ TEST_CASE("calculates scalar product of two vectors using '*' operator",
   whirlwind::real result = v * e;
   REQUIRE(result == 20);
 }
+
+TEST_CASE("calculates vector product using class method", "[core]") {
+  whirlwind::Vector3 v(2, 3, 4);
+  whirlwind::Vector3 e(1, 2, 3);
+  whirlwind::Vector3 result = v.vectorProduct(e);
+  REQUIRE(result == whirlwind::Vector3(1, -2, 1));
+}
+
+TEST_CASE("calculates vector product using '%' operator", "[core]") {
+  whirlwind::Vector3 v(2, 3, 4);
+  whirlwind::Vector3 e(1, 2, 3);
+  whirlwind::Vector3 result = v % e;
+  REQUIRE(result == whirlwind::Vector3(1, -2, 1));
+}
+
+TEST_CASE("calculates vector product using '%=' operator", "[core]") {
+  whirlwind::Vector3 v(2, 3, 4);
+  whirlwind::Vector3 e(1, 2, 3);
+  v %= e;
+  REQUIRE(v == whirlwind::Vector3(1, -2, 1));
+}
