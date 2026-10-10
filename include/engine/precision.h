@@ -1,4 +1,4 @@
 namespace whirlwind {
 // By default single precision is provided
-typedef float real;
+using real = float;
 } // namespace whirlwind

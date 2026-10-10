@@ -24,8 +24,8 @@ public:
     z = -z;
   }
 
-  Vector3 operator*(const real value) const {
-    return Vector3(x * value, y * value, z * value);
+  auto operator*(const real value) const -> Vector3 {
+    return {x * value, y * value, z * value};
   }
 
   void operator+=(const Vector3 &v) {
@@ -34,8 +34,8 @@ public:
     z += v.z;
   }
 
-  Vector3 operator+(const Vector3 &v) const {
-    return Vector3(x + v.x, y + v.y, z + v.z);
+  auto operator+(const Vector3 &v) const -> Vector3 {
+    return {x + v.x, y + v.y, z + v.z};
   }
 
   void operator-=(const Vector3 &v) {
@@ -44,8 +44,8 @@ public:
     z -= v.z;
   }
 
-  Vector3 operator-(const Vector3 &v) const {
-    return Vector3(x - v.x, y - v.y, z - v.z);
+  auto operator-(const Vector3 &v) const -> Vector3 {
+    return {x - v.x, y - v.y, z - v.z};
   }
 
   void addScaledVector(const Vector3 &vector, real scale) {
@@ -54,8 +54,8 @@ public:
     z += vector.z * scale;
   }
 
-  Vector3 componentProduct(const Vector3 &vector) const {
-    return Vector3(x * vector.x, y * vector.y, z * vector.z);
+  [[nodiscard]] auto componentProduct(const Vector3 &vector) const -> Vector3 {
+    return {x * vector.x, y * vector.y, z * vector.z};
   }
 
   void componentProductUpdate(const Vector3 &vector) {
@@ -64,7 +64,7 @@ public:
     z *= vector.z;
   }
 
-  real scalarProduct(const Vector3 &vector) const {
+  [[nodiscard]] auto scalarProduct(const Vector3 &vector) const -> real {
     return (x * vector.x) + (y * vector.y) + (z * vector.z);
   }
 
@@ -72,24 +72,24 @@ public:
     return (x * vector.x) + (y * vector.y) + (z * vector.z);
   }
 
-  Vector3 vectorProduct(const Vector3 &vector) const {
-    return Vector3(y * vector.z - z * vector.y, z * vector.x - x * vector.z,
-                   x * vector.y - y * vector.x);
+  [[nodiscard]] auto vectorProduct(const Vector3 &vector) const -> Vector3 {
+    return {(y * vector.z) - (z * vector.y), (z * vector.x) - (x * vector.z),
+            (x * vector.y) - (y * vector.x)};
   }
 
   void operator%=(const Vector3 &vector) { *this = vectorProduct(vector); }
 
-  Vector3 operator%(const Vector3 &vector) const {
-    return Vector3(y * vector.z - z * vector.y, z * vector.x - x * vector.z,
-                   x * vector.y - y * vector.x);
+  auto operator%(const Vector3 &vector) const -> Vector3 {
+    return {(y * vector.z) - (z * vector.y), (z * vector.x) - (x * vector.z),
+            (x * vector.y) - (y * vector.x)};
   }
 
-  bool operator==(const Vector3 &vector) const {
+  auto operator==(const Vector3 &vector) const -> bool {
     return (x == vector.x && y == vector.y && z == vector.z);
   }
 
-  friend std::ostream &operator<<(std::ostream &os,
-                                  const whirlwind::Vector3 &v) {
+  friend auto operator<<(std::ostream &os, const whirlwind::Vector3 &v)
+      -> std::ostream & {
     return os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
   }
 };
