@@ -1,3 +1,4 @@
+#include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include <engine/core.h>
@@ -10,6 +11,23 @@ TEST_CASE("Vector3 can be constructed", "[core]") {
   REQUIRE(v.z == 3);
 }
 
+TEST_CASE("calculates magnitude of Vector3", "[core]") {
+  whirlwind::Vector3 v(2, 3, 6);
+  whirlwind::real magnitude = v.magnitude();
+  REQUIRE(magnitude == 7);
+}
+
+TEST_CASE("calcuates squareMagnitude of Vector3", "[core]") {
+  whirlwind::Vector3 v(2, 3, 6);
+  whirlwind::real squareMagnitude = v.squareMagnitude();
+  REQUIRE(squareMagnitude == 49);
+}
+
+TEST_CASE("normalizes a vector", "[core]") {
+  whirlwind::Vector3 v(2, 3, 6);
+  v.normalize();
+  REQUIRE(v.x == ((whirlwind::real)2) / (whirlwind::real)7);
+}
 TEST_CASE("Vector3 can be muliplied", "[core]") {
   whirlwind::Vector3 v(1, 2, 3);
   v = v * 2;
@@ -97,6 +115,12 @@ TEST_CASE("calculates scalar product of two vectors using '*' operator",
   REQUIRE(result == 20);
 }
 
+TEST_CASE("calculates scalar product using '*=' operator", "[core]") {
+  whirlwind::Vector3 v(2, 3, 4);
+  v *= 3;
+  REQUIRE(v == whirlwind::Vector3(6, 9, 12));
+}
+
 TEST_CASE("calculates vector product using class method", "[core]") {
   whirlwind::Vector3 v(2, 3, 4);
   whirlwind::Vector3 e(1, 2, 3);
@@ -116,4 +140,13 @@ TEST_CASE("calculates vector product using '%=' operator", "[core]") {
   whirlwind::Vector3 e(1, 2, 3);
   v %= e;
   REQUIRE(v == whirlwind::Vector3(1, -2, 1));
+}
+
+TEST_CASE("makeOrthonormalBasis function", "[core]") {
+  whirlwind::Vector3 a(1, 0, 0);
+  whirlwind::Vector3 b(1, 1, 0);
+  whirlwind::Vector3 c(0, 0, 0);
+
+  whirlwind::Vector3::makeOrthonormalBasis(&a, &b, &c);
+  REQUIRE(c == whirlwind::Vector3(0, 0, 1));
 }

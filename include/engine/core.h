@@ -1,7 +1,9 @@
 #pragma once
 
+#include <cmath>
 #include <engine/precision.h>
 #include <ostream>
+using namespace std;
 namespace whirlwind {
 class Vector3 {
 public:
@@ -24,6 +26,29 @@ public:
     z = -z;
   }
 
+  [[nodiscard]] auto magnitude() const -> real {
+    return sqrt((x * x) + (y * y) + (z * z));
+  }
+
+  [[nodiscard]] auto squareMagnitude() const -> real {
+    return (x * x) + (y * y) + (z * z);
+  }
+
+  void normalize() {
+    real l = magnitude();
+    if (l > 0) {
+      (*this) *= (static_cast<real>(1)) / l;
+    }
+  }
+
+  // Multiplies Vector by scalar
+  void operator*=(const real value) {
+    x *= value;
+    y *= value;
+    z *= value;
+  }
+
+  // Returns copy of this Vector multiplied by scalar
   auto operator*(const real value) const -> Vector3 {
     return {x * value, y * value, z * value};
   }
@@ -88,8 +113,18 @@ public:
     return (x == vector.x && y == vector.y && z == vector.z);
   }
 
-  friend auto operator<<(std::ostream &os, const whirlwind::Vector3 &v)
-      -> std::ostream & {
+  static void makeOrthonormalBasis(Vector3 *a, Vector3 *b, Vector3 *c) {
+    a->normalize();
+    (*c) = (*a) % (*b);
+    if (c->squareMagnitude() == 0.0) {
+      return;
+    }
+    c->normalize();
+    (*b) = (*c) % (*a);
+  }
+
+  friend auto operator<<(ostream &os, const whirlwind::Vector3 &v)
+      -> ostream & {
     return os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
   }
 };
