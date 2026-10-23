@@ -23,5 +23,7 @@ protected:
    * integral.For this reason it may be inaccurate in some cases.**/
   void integrate(whirlwind::real duration);
 
+  auto kineticEnergy() -> whirlwind::real;
+
   void clearAccumulator();
 };

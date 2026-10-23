@@ -27,3 +27,11 @@ void Particle::integrate(real duration) {
   // TODO: Not implemented yet?
   clearAccumulator();
 }
+
+auto Particle::kineticEnergy() -> whirlwind::real {
+  if (inverseMass <= 0.0F) {
+    return 0.0F;
+  }
+
+  return 0.5 * (1.0 / inverseMass) * (velocity.squareMagnitude());
+}
